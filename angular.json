@@ -54,19 +54,31 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
+          "options": {
+            "browserTarget": "rideshare-frontend:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
+            "configurations": {
             "production": {
-              "browserTarget": "rideshare-frontend:build:production"
+              "browserTarget": "rideshare-frontend:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "rideshare-frontend:build:development"
+              "browserTarget": "rideshare-frontend:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

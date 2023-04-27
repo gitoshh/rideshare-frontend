@@ -1,0 +1,112 @@
+<div class="flex min-h-screen">
+  <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div>
+        <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+             alt="Your Company">
+        <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up for a new account</h2>
+        <p class="mt-2 text-sm leading-6 text-gray-500">
+          Already a member?
+          <a href="/login" class="font-semibold text-indigo-600 hover:text-indigo-500">Log in</a>
+        </p>
+      </div>
+
+      <div class="mt-10">
+        <div>
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            class="space-y-6"
+            novalidate>
+            <div>
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="mt-2">
+                <input id="email"
+                       name="email"
+                       type="email"
+                       autocomplete="email"
+                       [(ngModel)]="form.email"
+                       required
+                       class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
+              <div class="mt-2">
+                <input id="firstname" name="firstname" type="text"
+                       [(ngModel)]="form.firstName"
+                       required
+                       class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+              <div class="mt-2">
+                <input id="lastname" name="lastname" type="text" [(ngModel)]="form.lastName"
+                       required
+                       class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone number</label>
+              <div class="mt-2">
+                <input id="phone" name="phone" type="email" [(ngModel)]="form.phone"
+                       required
+                       class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium leading-6 text-gray-900">Is Driver</label>
+              <div class="mt-2">
+                <button (click)="toggleIsDriver()" type="button"
+                        [ngStyle]="{'background-color': isRider() ? 'rgb(79 70 229)': 'rgb(229 231 235)'}"
+                        [ngClass]="{'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2': true, 'bg-gray-200': isRider(), 'bg-indigo-600': !isRider()}"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                        role="switch" aria-checked="false">
+                  <span class="sr-only">Is driver</span>
+                  <span aria-hidden="true"
+                        [ngClass]="{'translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out': true,'translate-x-0': isRider(), 'translate-x-5': !isRider()}"></span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              <div class="mt-2">
+                <input id="password" name="password" type="password" [(ngModel)]="form.password"
+                       autocomplete="current-password" required
+                       class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <input id="remember-me" name="remember-me" type="checkbox"
+                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                <label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-700">Remember me</label>
+              </div>
+
+              <div class="text-sm leading-6">
+                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+              </div>
+            </div>
+
+            <div>
+              <button type="submit"
+                      class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Sign up
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="relative hidden w-0 flex-1 lg:block">
+    <img class="absolute inset-0 h-full w-full object-cover"
+         src="https://images.unsplash.com/photo-1619468129361-605ebea04b44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80"
+         alt="">
+  </div>
+</div>
