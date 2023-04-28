@@ -64,7 +64,7 @@
               <label class="block text-sm font-medium leading-6 text-gray-900">Is Driver</label>
               <div class="mt-2">
                 <button (click)="toggleIsDriver()" type="button"
-                        [ngStyle]="{'background-color': isRider() ? 'rgb(79 70 229)': 'rgb(229 231 235)'}"
+                        [ngStyle]="{'background-color': isRider() ? 'rgb(229 231 235)' : 'rgb(79 70 229)'}"
                         [ngClass]="{'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2': true, 'bg-gray-200': isRider(), 'bg-indigo-600': !isRider()}"
                         class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
                         role="switch" aria-checked="false">
