@@ -5,13 +5,17 @@ import {SignupComponent} from "./components/signup/signup.component";
 import {AppComponent} from "./components/home/app.component";
 import {RequestComponent} from "./components/request/request.component";
 import {AuthGuard} from "./guards/auth-guard.service";
+import {VehicleComponent} from "./components/vehicle/vehicle.component";
+import {IncomingRequestsComponent} from "./components/incoming-requests/incoming-requests.component";
+import {RequestsGuard} from "./guards/requests-guard.service";
 
 const routes: Routes = [
-  {path: 'home', component: AppComponent},
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
-  {path: 'request', component: RequestComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: 'request', component: RequestComponent, canActivate: [AuthGuard, RequestsGuard]},
   {path: 'signup', component: SignupComponent},
-  {path: '**', redirectTo: '/request', pathMatch: 'full'}
+  {path: 'onboarding', component: VehicleComponent, canActivate: [AuthGuard]},
+  {path: 'incoming', component: IncomingRequestsComponent, canActivate: [AuthGuard, RequestsGuard]},
+  {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
 @NgModule({

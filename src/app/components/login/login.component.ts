@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../_services/auth.service';
-import { TokenService } from '../../_services/token.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../_services/auth.service';
+import {TokenService} from '../../_services/token.service';
 import {LoginUser} from "../../types/login-user";
 import {Role} from "../../types/role";
 import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -49,10 +50,27 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.role = this.tokenStorage.getUser().role;
-          this.router.navigate(['/request'])
-            .then(() => {
-              window.location.reload();
-            });
+
+          if (this.role === Role.DRIVER) {
+            if (!this.tokenStorage.getUser().isOnBoarded) {
+              this.router.navigate(['/vehicle'])
+                .then(() => {
+                  window.location.reload();
+                });
+            } else {
+              this.router.navigate(['/incoming'])
+                .then(() => {
+                  window.location.reload();
+                });
+            }
+
+          }
+          if (this.role === Role.RIDER) {
+            this.router.navigate(['/request'])
+              .then(() => {
+                window.location.reload();
+              });
+          }
         },
         error: err => {
           this.errorMessage = err.error.message;

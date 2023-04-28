@@ -16,7 +16,6 @@ export class RequestService {
   }
 
   public requestRide(requestPayload: RequestPayload): Observable<any> {
-    console.log(this.tokenService.getUserId());
     return this.http.post(environment.request_api_url + '/ride-requests', {
       ...requestPayload, userId: this.tokenService.getUserId()
     }, {responseType: 'json'});

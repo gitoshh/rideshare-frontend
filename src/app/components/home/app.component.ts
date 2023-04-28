@@ -1,4 +1,7 @@
 import {Component} from '@angular/core';
+import {TokenService} from "../../_services/token.service";
+import {Role} from "../../types/role";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,10 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = 'rideshare-frontend';
 
+  isRider: boolean = false;
+
   isLoggedIn: boolean = false;
 
-  constructor() {
+  constructor(tokenService: TokenService, private router: Router) {
   }
 }

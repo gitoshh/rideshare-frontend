@@ -6,6 +6,7 @@ import {LatLng} from "../../types/lat-lng";
 import {RequestService} from "../../_services/request.service";
 import {RequestPayload} from "../../types/request-payload";
 import {Observable, Subscriber, Subscription} from "rxjs";
+import {UserService} from "../../_services/user.service";
 
 @Component({
   selector: 'app-request',
@@ -35,11 +36,13 @@ export class RequestComponent implements OnInit, OnChanges {
   watchId: number | undefined;
 
   places: Place[] = [];
-  rides: any[] = [];
+  ride: any = null;
+  private userService: UserService;
 
-  constructor(googleService: GoogleService, requestService: RequestService) {
+  constructor(googleService: GoogleService, requestService: RequestService, userService: UserService) {
     this.googleService = googleService;
     this.requestService = requestService;
+    this.userService = userService;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -87,8 +90,15 @@ export class RequestComponent implements OnInit, OnChanges {
       endLongitude: this.destination.lng,
     }
 
-    this.requestService.requestRide(payload).subscribe((rides: any) => {
-      this.rides = [...rides];
+    this.requestService.requestRide(payload).subscribe((ride: any) => {
+      if(ride) {
+        this.userService.fetchUserById(ride.driverId).subscribe((user: any) => {
+          ride.driver = user;
+          this.ride = ride;
+          console.log(this.ride);
+        });
+      }
+
     });
   }
 

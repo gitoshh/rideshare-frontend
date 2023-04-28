@@ -10,6 +10,8 @@ import {authInterceptorProviders} from "./middleware/http-interceptor.intercepto
 import { RequestComponent } from './components/request/request.component';
 import {FormsModule} from "@angular/forms";
 import {GoogleMapsModule} from "@angular/google-maps";
+import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { IncomingRequestsComponent } from './components/incoming-requests/incoming-requests.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import {GoogleMapsModule} from "@angular/google-maps";
     SignupComponent,
     LoginComponent,
     RequestComponent,
+    VehicleComponent,
+    IncomingRequestsComponent,
   ],
   imports: [
     BrowserModule,
