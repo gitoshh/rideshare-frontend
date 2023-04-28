@@ -42,42 +42,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.form).subscribe(
-      {
-        next: data => {
-          this.tokenStorage.saveToken(data.token);
-          this.tokenStorage.saveUser(data);
-          this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.role = this.tokenStorage.getUser().role;
-
-          if (this.role === Role.DRIVER) {
-            if (!this.tokenStorage.getUser().isOnBoarded) {
-              this.router.navigate(['/vehicle'])
-                .then(() => {
-                  window.location.reload();
-                });
-            } else {
-              this.router.navigate(['/incoming'])
-                .then(() => {
-                  window.location.reload();
-                });
-            }
-
-          }
-          if (this.role === Role.RIDER) {
-            this.router.navigate(['/request'])
-              .then(() => {
-                window.location.reload();
-              });
-          }
+    this.authService.login(this.form).subscribe({
+      next: (data: any) => {
+            this.tokenService.saveToken(data?.token);
+            this.tokenService.saveUser(data);
+            this.router.navigate(['request'])
         },
-        error: err => {
-          this.errorMessage = err.error.message;
-          this.isLoginFailed = true;
-        }
+      error: (err: any) => {
+        err.status === 401 ? this.errorMessage = 'Invalid credentials' : this.errorMessage = 'Something went wrong';
       }
-    );
+    });
   }
 
   reloadPage(): void {

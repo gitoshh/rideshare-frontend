@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Vehicle} from "../types/vehicle";
 import {TokenService} from "./token.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 
 const httpOptions = {
@@ -22,21 +23,14 @@ export class UserService {
     return this.http.get(environment.auth_api_url + '/users/' + id, httpOptions);
   }
 
-  registerVehicle(vehicle: Vehicle) {
+  registerVehicle(vehicle: Vehicle): Observable<any> {
     return this.http.post(environment.auth_api_url + '/vehicles', {
       ...vehicle,
       userId: this.tokenService.getUserId()
     }, httpOptions)
-      .subscribe({
-        next: data => {
-          this.http.post(environment.auth_api_url + '/users/' + this.tokenService.getUserId() + '/complete/onboarding',{}, httpOptions)
-            .subscribe({
-              next: data => {
-                this.tokenService.saveUser(data);
-                this.router.navigate(['incoming'])
-              }
-            });
-        }
-      });
+  }
+
+  completeOnboarding(): Observable<any> {
+    return this.http.post(environment.auth_api_url + '/users/' + this.tokenService.getUserId() + '/complete/onboarding',{}, httpOptions);
   }
 }

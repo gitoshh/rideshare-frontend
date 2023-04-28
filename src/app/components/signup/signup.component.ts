@@ -18,8 +18,6 @@ export class SignupComponent implements OnInit {
     phone: "",
     role: Role.RIDER
   };
-  isSuccessful = false;
-  isSignUpFailed = false;
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {
@@ -30,22 +28,15 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.register(this.form).subscribe({
-      next: data => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        this.router.navigate(['/login'])
-          .then(() => {
-            window.location.reload();
-          });
+      next: () => {
+        this.router.navigate(['/login']);
       },
       error: err => {
         if (err.status === 400) {
-          this.errorMessage = "Username or email already in use.";
+          this.errorMessage = "use valid details.";
         } else {
-          this.errorMessage = err.error.message;
+          this.errorMessage = "Something went wrong";
         }
-        this.isSignUpFailed = true;
       }
     });
   }

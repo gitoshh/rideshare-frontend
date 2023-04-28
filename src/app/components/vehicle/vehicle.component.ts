@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Vehicle} from "../../types/vehicle";
 import {UserService} from "../../_services/user.service";
 import {TokenService} from "../../_services/token.service";
+import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-vehicle',
@@ -16,8 +18,10 @@ export class VehicleComponent {
 
   currentYear: number = this.date.getFullYear();
 
+  errorMessage: string = '';
 
-  constructor(private userService: UserService, private tokenService: TokenService) {
+
+  constructor(private userService: UserService, private tokenService: TokenService, private router: Router) {
   }
 
   form: Vehicle = {
@@ -30,6 +34,19 @@ export class VehicleComponent {
   };
 
   onSubmit(): void {
-    this.userService.registerVehicle(this.form);
+    this.userService.registerVehicle(this.form).subscribe({
+      next: data => {
+        this.userService.completeOnboarding()
+          .subscribe({
+            next: data => {
+              this.tokenService.saveUser(data);
+              this.router.navigate(['incoming'])
+            },
+            error: () => {
+              this.errorMessage = 'Something went wrong';
+            }
+          });
+      }
+    });
   }
 }

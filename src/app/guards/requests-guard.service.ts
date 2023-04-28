@@ -11,16 +11,8 @@ export class RequestsGuard {
   }
 
   canActivate(): boolean {
-    if (this.auth.isAuthenticated() && this.auth.getUser().role === 'DRIVER' && !this.auth.getUser().isOnBoarded) {
-      this.router.navigate(['onboarding'])
-        .then(() => {
-          window.location.reload();
-        });
-      return false;
-    }
-
-    if (this.auth.isAuthenticated() && this.auth.getUser().role === 'RIDER') {
-      this.router.navigate(['request'])
+    if (this.auth.isAuthenticated() && this.auth.getUser().role === 'DRIVER') {
+      this.router.navigate(['incoming'])
         .then(() => {
           window.location.reload();
         });

@@ -5,6 +5,8 @@ import {User} from "../types/user";
 
 import { environment } from '../../environments/environment';
 import {LoginUser} from "../types/login-user";
+import {Router} from "@angular/router";
+import {TokenService} from "./token.service";
 
 
 const httpOptions = {
@@ -15,11 +17,11 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) { }
 
   login(loginDetails: LoginUser): Observable<any> {
     return this.http.post(environment.auth_api_url + '/auth/login', {
-     ...loginDetails
+      ...loginDetails
     }, httpOptions);
   }
 

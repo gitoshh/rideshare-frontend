@@ -9,6 +9,9 @@
 
       <div class="mt-10">
         <div>
+          <div *ngIf="errorMessage">
+            <div class="font-medium text-red-600">{{ errorMessage }}</div>
+          </div>
           <form
             name="form"
             (ngSubmit)="f.form.valid && onSubmit()"
