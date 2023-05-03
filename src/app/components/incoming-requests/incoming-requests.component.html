@@ -1,4 +1,58 @@
-<div class="lg:w-5/6 sm:w-full min-h-screen flex mx-auto my-8 shadow-xl p-4">
-  <h2 class="mt-8 lg:w-1/3 text-2xl font-bold leading-9 tracking-tight text-gray-900">Your incoming requests and trips will appear here</h2>
-</div>
+<div class="bg-gray-50 min-h-1/2 py-10 mx-12 my-8 shadow-2xl rounded">
+  <h2 class="px-4 text-base font-semibold leading-7 text-black sm:px-6 lg:px-8">Your incoming requests and trips</h2>
+  <table class="mt-6 w-full whitespace-nowrap text-left">
+    <colgroup>
+      <col class="w-full sm:w-4/12">
+      <col class="lg:w-4/12">
+      <col class="lg:w-2/12">
+      <col class="lg:w-1/12">
+      <col class="lg:w-1/12">
+    </colgroup>
+    <thead class="border-b border-black/10 text-sm leading-6 text-black">
+    <tr>
+      <th scope="col" class="py-2 pl-4 pr-8 font-semibold sm:pl-6 lg:pl-8">User ID</th>
+      <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell">Longitude</th>
+      <th scope="col" class="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20">Latitude</th>
+      <th scope="col" class="py-2 pl-0 pr-4 text-right font-semibold sm:pr-8 sm:text-left lg:pr-20">Status</th>
+      <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="divide-y divide-black/3">
+    <tr *ngFor="let incomingRequest of incomingRequests ">
+      <td class="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
+        <div class="flex items-center gap-x-4">
+          <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="h-8 w-8 rounded-full bg-gray-800">
+          <div class="truncate text-sm font-medium leading-6 text-black">{{incomingRequest.id}}</div>
+        </div>
+      </td>
+      <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+        <div class="flex gap-x-3">
+          <div class="px-2 py-1 text-xs font-medium">{{incomingRequest.latitude}}</div>
+        </div>
+      </td>
+      <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+        <div class="flex gap-x-3">
+          <div class="px-2 py-1 text-xs font-medium">{{incomingRequest.longitude}}</div>
+        </div>
+      </td>
 
+      <td class="py-4 pl-0 pr-4 text-sm leading-6 sm:pr-8 lg:pr-20">
+        <div class="flex items-center justify-end gap-x-2 sm:justify-start">
+          <time class="text-gray-800 sm:hidden" datetime="2023-01-23T11:00">45 minutes ago</time>
+          <div class="flex-none rounded-full p-1 text-green-400 bg-green-400/10">
+            <div [ngClass]="{'h-1.5 w-1.5 rounded-full': true, 'bg-current': incomingRequest.status === 'COMPLETED', 'bg-red-600': incomingRequest.status === 'REJECTED', 'bg-yellow-600': incomingRequest.status === 'PENDING'}" ></div>
+          </div>
+          <div *ngIf="incomingRequest.status" class="hidden text-black sm:block">{{incomingRequest.status | lowercase}}</div>
+        </div>
+      </td>
+      <td class="hidden py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-800 sm:table-cell sm:pr-6 lg:pr-8">
+        <div *ngIf="incomingRequest.status === 'PENDING'">
+        <button  (click)="rejectRequest(incomingRequest.id)" class="rounded-md bg-red-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/10 shadow mx-2">Reject</button>
+        <button  (click)="acceptRequest(incomingRequest.id)" class="rounded-md bg-green-600 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/10 shadow mx-2">Accept</button>
+      </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

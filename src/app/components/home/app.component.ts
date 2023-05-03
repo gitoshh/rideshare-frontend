@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TokenService} from "../../_services/token.service";
 import {Role} from "../../types/role";
 import {Router} from "@angular/router";
@@ -8,13 +8,21 @@ import {Router} from "@angular/router";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'rideshare-frontend';
-
-  isRider: boolean = false;
 
   isLoggedIn: boolean = false;
 
-  constructor(tokenService: TokenService, private router: Router) {
+  constructor(private tokenService: TokenService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.tokenService.isAuthenticated();
+  }
+
+  logout() {
+    this.tokenService.signOut()
+    this.router.navigate(['/login']).then(() => window.location.reload());
+    this.isLoggedIn = false;
   }
 }

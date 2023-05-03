@@ -21,4 +21,25 @@ export class RequestService {
     }, {responseType: 'json'});
   }
 
+  public fetchRideRequests(): Observable<any> {
+    return this.http.get(environment.request_api_url + '/ride-matches/driver/' + this.tokenService.getUserId(), {responseType: 'json'});
+  }
+
+  acceptRideRequest(requestId: number) {
+    return this.http.post(environment.request_api_url + '/ride-matches/' + requestId + '/accept', {}, {responseType: 'json'});
+  }
+
+  rejectRequest(requestId: number) {
+    return this.http.post(environment.request_api_url + '/ride-matches/' + requestId + '/reject', {}, {responseType: 'json'});
+  }
+
+  updateDriverLocation(latitude: number, longitude: number) {
+    return this.http.post(environment.locating_api_url + '/locations', {
+      latitude: latitude,
+      longitude: longitude,
+      userId: this.tokenService.getUserId(),
+      isDriver: this.tokenService.getUser().role === 'DRIVER',
+      isActive: true
+    }, {responseType: 'json'});
+  }
 }

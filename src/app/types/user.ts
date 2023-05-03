@@ -1,4 +1,4 @@
-import {Role} from "./role";
+import { Role } from './role';
 
 export interface User {
   firstName: string;
@@ -6,5 +6,6 @@ export interface User {
   email: string;
   password: string;
   phone: string;
-  role: Role;
+  isDriver: boolean;
+  isRider: boolean;
 }

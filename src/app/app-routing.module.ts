@@ -11,7 +11,7 @@ import {RequestsGuard} from "./guards/requests-guard.service";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'request', component: RequestComponent, canActivate: [AuthGuard, RequestsGuard]},
+  {path: 'request', component: RequestComponent, canActivate: [RequestsGuard, AuthGuard]},
   {path: 'signup', component: SignupComponent},
   {path: 'onboarding', component: VehicleComponent, canActivate: [AuthGuard]},
   {path: 'incoming', component: IncomingRequestsComponent, canActivate: [AuthGuard]},

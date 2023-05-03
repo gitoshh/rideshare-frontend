@@ -19,6 +19,8 @@ export class RequestComponent implements OnInit, OnChanges {
 
   private requestService: RequestService;
 
+  private cost: number = 0;
+
   apiLoaded: Promise<boolean> = {} as Promise<boolean>;
 
   center: google.maps.LatLngLiteral = {lat: 0, lng: 0};
